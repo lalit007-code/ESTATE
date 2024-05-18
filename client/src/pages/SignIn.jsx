@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  signInStart,
+  signInSuccess,
+  signInError,
+} from "../redux/user/userSlice.js";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({
@@ -18,7 +25,7 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      setLoading(true); // loading is true because data is travelling after button is pressed
+      dispatch(signInStart()); // loading is true because data is travelling after button is pressed
 
       const res = await fetch("/api/auth/signin", {
         method: "POST",
@@ -32,16 +39,13 @@ const SignIn = () => {
       console.log(data);
 
       if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
+        dispatch(signInError(data.message)); // sending erro message coming from backend
         return;
       }
-      setLoading(false);
-      setError(null);
+      dispatch(signInSuccess(data)); //why using " . " , when success , data is coming we have to send that
       navigate("/");
     } catch (e) {
-      setLoading(false);
-      setError(null);
+      dispatch(signInError(e.message));
     }
   };
 
