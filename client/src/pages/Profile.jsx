@@ -7,14 +7,12 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import { app } from "../firebase.js";
 import {
   deleteUserError,
   deleteUserStart,
   deleteUserSuccess,
-  signInStart,
   signOutUserError,
   signOutUserStart,
   signOutUserSuccess,
@@ -25,7 +23,7 @@ import {
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const [file, setFile] = useState(undefined);
 
   const fileRef = useRef(null);
