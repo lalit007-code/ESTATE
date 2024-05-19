@@ -25,9 +25,9 @@ const Profile = () => {
   }, [file]);
 
   const handleFileUpload = (file) => {
-    const storage = getStorage(app);
-    const fileName = new Date().getTime() + file.name;
-    const storageRef = ref(storage, fileName);
+    const storage = getStorage(app); //accesssing storgae from firbase
+    const fileName = new Date().getTime() + file.name; //giving name
+    const storageRef = ref(storage, fileName); //give storage refernce
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
