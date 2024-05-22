@@ -1,3 +1,4 @@
+import Listing from "../modals/listing.modal.js";
 import User from "../modals/user.modal.js";
 import { errorHandler } from "../utils/error.js";
 import bcrypt from "bcrypt";
@@ -57,5 +58,18 @@ export const deleteUser = async (req, res, next) => {
     });
   } catch (error) {
     new error();
+  }
+};
+
+export const getUserListings = async (req, res, next) => {
+  if (req.user.id === req.params.id) {
+    try {
+      const listing = await Listing.find({ userRef: req.params.id });
+      res.status(200).json(listing);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    return next(errorHandler(401, "You can only view your own listing"));
   }
 };
