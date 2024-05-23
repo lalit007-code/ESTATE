@@ -32,7 +32,7 @@ const Profile = () => {
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [showListingError, setShowlistingError] = useState(false);
-  const [userListing, setuserListing] = useState([]);
+  const [userListing, setUserListing] = useState([]);
 
   // console.log(file);
   console.log(formData);
@@ -142,9 +142,28 @@ const Profile = () => {
         setShowlistingError(true);
         return;
       }
-      setuserListing(data);
+      setUserListing(data);
     } catch (error) {
       setShowlistingError(true);
+    }
+  };
+
+  const handleDeleteListing = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: "DELETE",
+      });
+      const data = res.json();
+
+      setUserListing((prev) =>
+        prev.filter((listing) => listing._id !== listingId)
+      );
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -261,7 +280,12 @@ const Profile = () => {
               </Link>
               <div className="flex flex-col ">
                 <button className="uppercase text-slate-700">Edit</button>
-                <button className="text-red-700 uppercase">Delete</button>
+                <button
+                  onClick={() => handleDeleteListing(listing._id)}
+                  className="text-red-700 uppercase"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))}
