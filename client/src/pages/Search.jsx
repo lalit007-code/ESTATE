@@ -14,6 +14,7 @@ const Search = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
+  // console.log(listings);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -221,6 +222,16 @@ const Search = () => {
         <h1 className="text-3xl font-semibold border-b p-3 text-slate-700 mt-5 ">
           Listing Results:
         </h1>
+        <div className="p-7 flex flex-col gap-7">
+          {!loading && listings.length === 0 && (
+            <p className="text-xl  text-slate-600">No Listings Found</p>
+          )}
+          {loading && (
+            <p className="text-xl text-slate-600 text-center w-full">
+              Loading....
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
