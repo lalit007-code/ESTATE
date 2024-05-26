@@ -72,7 +72,7 @@ const UpdateListing = () => {
           setImageUploadError(false);
           setIsUploading(false);
         })
-        .catch((err) => {
+        .catch(() => {
           setImageUploadError("Image upload fail (2 mb max per image)");
           setIsUploading(false);
         });
