@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server/index.js",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "build":"npm install && npm install --prefix client && npm build --prefix client"
   },
   "keywords": [],
   "author": "",
