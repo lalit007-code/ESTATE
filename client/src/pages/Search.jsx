@@ -24,7 +24,7 @@ const Search = () => {
     const offerFromUrl = urlParams.get("offer");
     const sortFromUrl = urlParams.get("sort");
     const orderFromUrl = urlParams.get("order");
-    console.log(listings);
+    // console.log(listings);
 
     if (
       searchTermUrl ||
@@ -50,11 +50,11 @@ const Search = () => {
       setLoading(true);
 
       const searchQuery = urlParams.toString();
-      console.log(searchQuery);
+      // console.log(searchQuery);
       const res = await fetch(`/api/listing/get?${searchQuery}`);
 
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       setListings(data);
       setLoading(false);
     };
